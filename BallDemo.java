@@ -53,11 +53,16 @@ public class BallDemo
         
         // make them bounce
         boolean finished =  false;
+        int index = 0;
         while(!finished) {
             myCanvas.wait(50);           // small delay
-            // stop once ball has travelled a certain distance on x axis
-            if(bolas.get(0).getXPosition() >= 550) {
-                finished = true;
+            for (BouncingBall ball : bolas){
+                ball.move();
+                // stop once ball has travelled a certain distance on x axis
+                if(ball.getXPosition() >= 550) {
+                    finished = true;
+                }
+                index++;
             }
         }
     }
