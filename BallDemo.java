@@ -21,8 +21,6 @@ public class BallDemo
         myCanvas = new Canvas("Ball Demo", 600, 500);
     }
 
-
-
     /**
      * Simulate two bouncing balls
      */
@@ -68,5 +66,61 @@ public class BallDemo
             }
         }
     }
-}
 
+    /**
+     * Simulate two bouncing balls
+     */
+    public void boxBounce(int nDeBolas)
+    {    
+        ArrayList<BoxBall> bolas = new ArrayList<>();
+        Random nAleatorio = new Random();
+        int posY = 0;
+        int posX = 0;
+        int diametro = 0;
+        int ground = 400;   // position of the ground line
+        int sky = 60;
+        int izq = 50;
+        int der = 550;
+        boolean posicionCorrecta = false;
+        myCanvas.setVisible(true);
+
+        // draw the ground
+        myCanvas.drawLine(izq , ground, der, ground);
+        myCanvas.drawLine(izq , sky, der, sky);
+        myCanvas.drawLine(izq , ground, izq, sky);
+        myCanvas.drawLine(der, ground, der, sky);
+        // create and show the balls
+        for (int count = 0; count < nDeBolas; count++){
+            int r = nAleatorio.nextInt(256);
+            int g = nAleatorio.nextInt(256);
+            int b = nAleatorio.nextInt(256);
+            while(!posicionCorrecta) {
+                posicionCorrecta = true;
+                posY = nAleatorio.nextInt(200);
+                posX = nAleatorio.nextInt(200);
+                if (posY <= sky || posY >= ground){
+                    posicionCorrecta = false;
+                }
+                else if (posX <= izq || posX >= der){
+                    posicionCorrecta = false;
+                }
+            }
+            diametro = nAleatorio.nextInt(50);
+            BoxBall ball = new BoxBall(posY, posX, diametro, new Color(r,g,b), ground, izq, sky, der, myCanvas);
+            ball.draw();
+            bolas.add(ball);
+        }
+        // make them bounce
+        boolean finished =  false;
+        int index = 0;
+        while(!finished) {
+            myCanvas.wait(50);           // small delay
+            for (BoxBall ball : bolas){                
+                ball.move();
+                // stop once ball has travelled a certain distance on x axis
+                index++;
+            }
+        }
+    }
+
+}
