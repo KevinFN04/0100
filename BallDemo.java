@@ -21,6 +21,8 @@ public class BallDemo
         myCanvas = new Canvas("Ball Demo", 600, 500);
     }
 
+
+
     /**
      * Simulate two bouncing balls
      */
@@ -50,13 +52,13 @@ public class BallDemo
             ball.draw();
             bolas.add(ball);
         }
-        
+
         // make them bounce
         boolean finished =  false;
         int index = 0;
         while(!finished) {
             myCanvas.wait(50);           // small delay
-            for (BouncingBall ball : bolas){
+            for (BouncingBall ball : bolas){                
                 ball.move();
                 // stop once ball has travelled a certain distance on x axis
                 if(ball.getXPosition() >= 550) {
